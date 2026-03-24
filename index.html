@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login TKA 2026</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="login-container">
+      <img src="edu.jpg" class="logo" />
+
+      <h2>
+        PUSAT LATIHAN TKA <br />
+        SD - SMP
+      </h2>
+
+      <input type="text" id="username" placeholder="Username" />
+
+      <div class="password-box">
+        <input type="password" id="password" placeholder="Password" />
+        <i class="fa fa-eye" id="togglePassword"></i>
+      </div>
+
+      <input type="text" id="token" placeholder="Token" />
+
+      <button onclick="login()">LOGIN</button>
+
+      <p class="info">silahkan hubungi admin di 0851-7983-8108</p>
+
+      <p id="error"></p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

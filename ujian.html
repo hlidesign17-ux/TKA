@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- =====================================================
+FONT GOOGLE
+===================================================== -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Ujian</title>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        margin: 0;
+      }
+
+      .header {
+        background: #1e293b;
+        color: white;
+        padding: 18px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+      }
+
+      .container {
+        max-width: 850px;
+        margin: auto;
+        background: white;
+        padding: 35px;
+        margin-top: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      #nomorSoal {
+        font-weight: 600;
+      }
+
+      #timer {
+        font-weight: 500;
+        color: #38bdf8;
+      }
+
+      .pilihan {
+        margin: 12px 0;
+        padding: 10px;
+        border-radius: 6px;
+        transition: 0.2s;
+      }
+
+      .pilihan:hover {
+        background: #f1f5f9;
+      }
+
+      button {
+        padding: 11px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: "Poppins";
+        font-size: 14px;
+        margin-top: 25px;
+      }
+
+      #btnPrev {
+        background: #64748b;
+        color: white;
+      }
+
+      #btnNext {
+        background: #3b82f6;
+        color: white;
+      }
+
+      #btnSubmit {
+        background: #16a34a;
+        color: white;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      td,
+      th {
+        border: 1px solid #e2e8f0;
+        padding: 10px;
+        text-align: center;
+      }
+
+      th {
+        background: #f1f5f9;
+      }
+
+      .gambar-soal {
+        text-align: center;
+        margin: 15px 0;
+      }
+
+      .gambar-soal img {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div id="nomorSoal"></div>
+
+      <div id="timer"></div>
+    </div>
+
+    <div class="container">
+      <div id="soal"></div>
+
+      <button id="btnPrev" onclick="sebelumnya()">Sebelumnya</button>
+
+      <button id="btnNext" onclick="selanjutnya()">Selanjutnya</button>
+
+      <button id="btnSubmit" onclick="submitUjian()">Submit</button>
+    </div>
+
+    <script src="ujian.js"></script>
+  </body>
+</html>

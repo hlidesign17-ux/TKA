@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pramenu TKA</title>
+<link rel="stylesheet" href="pramenu.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="hi"></h1>
+
+<p id="kalimat"></p>
+
+<button onclick="lanjut()">Lanjutkan</button>
+
+</div>
+
+<script>
+
+let username = localStorage.getItem("username");
+let kalimat = localStorage.getItem("kalimat");
+
+document.getElementById("hi").innerText="Hi "+username;
+document.getElementById("kalimat").innerText=kalimat;
+
+function lanjut(){
+
+window.location="menu.html";
+
+}
+
+</script>
+
+</body>
+</html>

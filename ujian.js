@@ -29,72 +29,81 @@ let bank = localStorage.getItem("bank_pilih");
 MENGAMBIL SOAL DARI API
 ===================================================== */
 
-async function ambilSoal() {
-  let url =
-    api +
-    "?aksi=soal" +
-    "&jenjang=" +
-    jenjang +
-    "&mapel=" +
-    mapel +
-    "&bank=" +
-    bank;
 
-  let response = await fetch(url);
+  async function ambilSoal() {
+    let url =
+      api +
+      "?aksi=soal" +
+      "&jenjang=" +
+      jenjang +
+      "&mapel=" +
+      mapel +
+      "&bank=" +
+      bank;
 
-  semuaSoal = await response.json();
+    let response = await fetch(url);
+    semuaSoal = await response.json();
+
+    // =============================
+    // LOAD JAWABAN USER
+    // =============================
+
+    let simpanJawaban = localStorage.getItem("jawabanUser");
+
+    if (simpanJawaban) {
+      jawabanUser = JSON.parse(simpanJawaban);
+    } else {
+      jawabanUser = new Array(semuaSoal.length);
+    }
+
+    // =============================
+    // LOAD INDEX SOAL
+    // =============================
+
+    let simpanIndex = localStorage.getItem("indexSoal");
+
+    if (simpanIndex) {
+      indexSoal = parseInt(simpanIndex);
+    }
+
+    tampilSoal();
+  }
 
   /* =====================================================
-  MEMBUAT TEMPAT PENYIMPANAN JAWABAN USER
-  Jumlahnya sama dengan jumlah soal
-  ===================================================== */
-
-  jawabanUser = new Array(semuaSoal.length);
-
-  /* =====================================================
-  MENAMPILKAN SOAL PERTAMA
-  ===================================================== */
-
-  tampilSoal();
-  console.log("Jumlah soal:", semuaSoal.length);
-  console.log("Array jawaban:", jawabanUser);
-}
-
-/* =====================================================
 MENJALANKAN FUNGSI AMBIL SOAL
 ===================================================== */
 
-ambilSoal();
+  ambilSoal();
 
-//==================================================
-// TAMPILKAN SOAL
-//==================================================
+  //==================================================
+  // TAMPILKAN SOAL
+  //==================================================
 
-function tampilSoal() {
-  let soal = semuaSoal[indexSoal];
+  function tampilSoal() {
+    let soal = semuaSoal[indexSoal];
 
-  document.getElementById("nomorSoal").innerText = "Soal " + (indexSoal + 1);
+    document.getElementById("nomorSoal").innerText = "Soal " + (indexSoal + 1);
 
-  let html = "";
+    let html = "";
 
-  //==========================
-  // TIPE 1
-  //==========================
+    //==========================
+    // TIPE 1
+    //==========================
 
-  if (soal.tipe == 1) {
-    // tampilkan gambar jika ada
-    if (soal.gambar) {
-      html += `
+    if (soal.tipe == 1) {
+      // tampilkan gambar jika ada
+      if (soal.gambar) {
+        html += `
     <div class="gambar-soal">
       <img src="gambar/${soal.gambar}">
     </div>
     `;
-    }
-    //batas gambar ditampilkan
+      }
+      //batas gambar ditampilkan
 
-    html += `<p>${soal.pertanyaan}</p>`;
+      html += `<p>${soal.pertanyaan}</p>`;
 
-    html += `
+      html += `
 <div class="pilihan">
 <input type="radio" name="jawab" value="A"> A. ${soal.A}
 </div>
@@ -111,25 +120,25 @@ function tampilSoal() {
 <input type="radio" name="jawab" value="D"> D. ${soal.D}
 </div>
 `;
-  }
+    }
 
-  //==========================
-  // TIPE 2
-  //==========================
+    //==========================
+    // TIPE 2
+    //==========================
 
-  if (soal.tipe == 2) {
-    // tampilkan gambar jika ada
-    if (soal.gambar) {
-      html += `
+    if (soal.tipe == 2) {
+      // tampilkan gambar jika ada
+      if (soal.gambar) {
+        html += `
     <div class="gambar-soal">
       <img src="gambar/${soal.gambar}">
     </div>
     `;
-    }
-    //batas gambar ditampilkan
-    html += `<p>${soal.pertanyaan}</p>`;
+      }
+      //batas gambar ditampilkan
+      html += `<p>${soal.pertanyaan}</p>`;
 
-    html += `
+      html += `
 <div class="pilihan">
 <input type="checkbox" value="A"> A. ${soal.A}
 </div>
@@ -142,25 +151,25 @@ function tampilSoal() {
 <input type="checkbox" value="C"> C. ${soal.C}
 </div>
 `;
-  }
+    }
 
-  //==========================
-  // TIPE 3 (TABEL)
-  //==========================
+    //==========================
+    // TIPE 3 (TABEL)
+    //==========================
 
-  if (soal.tipe == 3) {
-    // tampilkan gambar jika ada
-    if (soal.gambar) {
-      html += `
+    if (soal.tipe == 3) {
+      // tampilkan gambar jika ada
+      if (soal.gambar) {
+        html += `
     <div class="gambar-soal">
       <img src="gambar/${soal.gambar}">
     </div>
     `;
-    }
-    //batas gambar ditampilkan
-    html += `<p>${soal.pertanyaan}</p>`;
+      }
+      //batas gambar ditampilkan
+      html += `<p>${soal.pertanyaan}</p>`;
 
-    html += `
+      html += `
 
 <table>
 
@@ -191,241 +200,234 @@ function tampilSoal() {
 </table>
 
 `;
-  }
-
-  document.getElementById("soal").innerHTML = html;
-
-  //=====================================
-  // MENAMPILKAN JAWABAN YANG SUDAH DIPILIH
-  //=====================================
-
-  let jawaban = jawabanUser[indexSoal];
-
-  if (jawaban) {
-    if (soal.tipe == 1) {
-      let radio = document.querySelector('input[value="' + jawaban + '"]');
-
-      if (radio) radio.checked = true;
     }
 
-    if (soal.tipe == 2) {
-      let arr = jawaban.split(",");
+    document.getElementById("soal").innerHTML = html;
 
-      arr.forEach(function (v) {
-        let cek = document.querySelector('input[value="' + v + '"]');
+    //=====================================
+    // MENAMPILKAN JAWABAN YANG SUDAH DIPILIH
+    //=====================================
 
-        if (cek) cek.checked = true;
-      });
+    let jawaban = jawabanUser[indexSoal];
+
+    if (jawaban) {
+      if (soal.tipe == 1) {
+        let radio = document.querySelector('input[value="' + jawaban + '"]');
+
+        if (radio) radio.checked = true;
+      }
+
+      if (soal.tipe == 2) {
+        let arr = jawaban.split(",");
+
+        arr.forEach(function (v) {
+          let cek = document.querySelector('input[value="' + v + '"]');
+
+          if (cek) cek.checked = true;
+        });
+      }
+
+      if (soal.tipe == 3) {
+        let arr = jawaban.split(",");
+
+        if (arr[0]) {
+          document.querySelector(
+            'input[name="p1"][value="' + arr[0] + '"]',
+          ).checked = true;
+        }
+
+        if (arr[1]) {
+          document.querySelector(
+            'input[name="p2"][value="' + arr[1] + '"]',
+          ).checked = true;
+        }
+
+        if (arr[2]) {
+          document.querySelector(
+            'input[name="p3"][value="' + arr[2] + '"]',
+          ).checked = true;
+        }
+      }
     }
 
-    if (soal.tipe == 3) {
-      let arr = jawaban.split(",");
-
-      if (arr[0]) {
-        document.querySelector(
-          'input[name="p1"][value="' + arr[0] + '"]',
-        ).checked = true;
-      }
-
-      if (arr[1]) {
-        document.querySelector(
-          'input[name="p2"][value="' + arr[1] + '"]',
-        ).checked = true;
-      }
-
-      if (arr[2]) {
-        document.querySelector(
-          'input[name="p3"][value="' + arr[2] + '"]',
-        ).checked = true;
-      }
-    }
-  }
-
-  /* tambahan baru sekali */
-  /* =====================================================
+    /* tambahan baru sekali */
+    /* =====================================================
 KONTROL TOMBOL NAVIGASI
 ===================================================== */
 
-  let btnPrev = document.getElementById("btnPrev");
-  let btnNext = document.getElementById("btnNext");
-  let btnSubmit = document.getElementById("btnSubmit");
+    let btnPrev = document.getElementById("btnPrev");
+    let btnNext = document.getElementById("btnNext");
+    let btnSubmit = document.getElementById("btnSubmit");
 
-  btnSubmit.style.display = "none";
+    btnSubmit.style.display = "none";
 
-  if (indexSoal == 0) {
-    btnPrev.style.display = "none";
-  } else {
-    btnPrev.style.display = "inline-block";
-  }
+    if (indexSoal == 0) {
+      btnPrev.style.display = "none";
+    } else {
+      btnPrev.style.display = "inline-block";
+    }
 
-  if (indexSoal == semuaSoal.length - 1) {
-    btnNext.style.display = "none";
-    btnSubmit.style.display = "inline-block";
-  } else {
-    btnNext.style.display = "inline-block";
-  }
-}
-
-//==================================================
-// TOMBOL SELANJUTNYA
-//==================================================
-
-function selanjutnya() {
-  simpanJawaban();
-
-  if (indexSoal < semuaSoal.length - 1) {
-    indexSoal++;
-
-    tampilSoal();
-  }
-}
-//==================================================
-// TOMBOL SEBELUMNYA
-//==================================================
-
-function sebelumnya() {
-  simpanJawaban();
-
-  if (indexSoal > 0) {
-    indexSoal--;
-
-    tampilSoal();
-  }
-}
-
-//==================================================
-// MENYIMPAN JAWABAN USER
-//==================================================
-
-function simpanJawaban() {
-  let soal = semuaSoal[indexSoal];
-
-  //==========================
-  // TIPE 1
-  //==========================
-
-  if (soal.tipe == 1) {
-    let pilih = document.querySelector('input[name="jawab"]:checked');
-
-    if (pilih) {
-      jawabanUser[indexSoal] = pilih.value;
+    if (indexSoal == semuaSoal.length - 1) {
+      btnNext.style.display = "none";
+      btnSubmit.style.display = "inline-block";
+    } else {
+      btnNext.style.display = "inline-block";
     }
   }
 
-  //==========================
-  // TIPE 2
-  //==========================
+  //==================================================
+  // TOMBOL SELANJUTNYA
+  //==================================================
 
-  if (soal.tipe == 2) {
-    let cek = document.querySelectorAll('#soal input[type="checkbox"]:checked');
+  function selanjutnya() {
+    simpanJawaban();
 
-    let arr = [];
+    if (indexSoal < semuaSoal.length - 1) {
+      indexSoal++;
 
-    cek.forEach(function (c) {
-      arr.push(c.value);
-    });
+      localStorage.setItem("indexSoal", indexSoal);
 
-    jawabanUser[indexSoal] = arr.join(",");
+      tampilSoal();
+    }
+  }
+  //==================================================
+  // TOMBOL SEBELUMNYA
+  //==================================================
+
+  function sebelumnya() {
+    simpanJawaban();
+
+    if (indexSoal > 0) {
+      indexSoal--;
+
+      localStorage.setItem("indexSoal", indexSoal);
+
+      tampilSoal();
+    }
   }
 
-  //==========================
-  // TIPE 3
-  //==========================
+  //==================================================
+  // MENYIMPAN JAWABAN USER
+  //==================================================
 
-  if (soal.tipe == 3) {
-    let p1 = document.querySelector('input[name="p1"]:checked');
-    let p2 = document.querySelector('input[name="p2"]:checked');
-    let p3 = document.querySelector('input[name="p3"]:checked');
+  function simpanJawaban() {
+    let soal = semuaSoal[indexSoal];
 
-    let j1 = p1 ? p1.value : "";
-    let j2 = p2 ? p2.value : "";
-    let j3 = p3 ? p3.value : "";
+    //==========================
+    // TIPE 1
+    //==========================
 
-    jawabanUser[indexSoal] = j1 + "," + j2 + "," + j3;
+    if (soal.tipe == 1) {
+      let pilih = document.querySelector('input[name="jawab"]:checked');
+
+      if (pilih) {
+        jawabanUser[indexSoal] = pilih.value;
+      }
+    }
+
+    //==========================
+    // TIPE 2
+    //==========================
+
+    if (soal.tipe == 2) {
+      let cek = document.querySelectorAll(
+        '#soal input[type="checkbox"]:checked',
+      );
+
+      let arr = [];
+
+      cek.forEach(function (c) {
+        arr.push(c.value);
+      });
+
+      jawabanUser[indexSoal] = arr.join(",");
+    }
+
+    //==========================
+    // TIPE 3
+    //==========================
+
+    if (soal.tipe == 3) {
+      let p1 = document.querySelector('input[name="p1"]:checked');
+      let p2 = document.querySelector('input[name="p2"]:checked');
+      let p3 = document.querySelector('input[name="p3"]:checked');
+
+      let j1 = p1 ? p1.value : "";
+      let j2 = p2 ? p2.value : "";
+      let j3 = p3 ? p3.value : "";
+
+      jawabanUser[indexSoal] = j1 + "," + j2 + "," + j3;
+    }
+    localStorage.setItem(
+      "jawabanUser",
+      JSON.stringify(jawabanUser),
+    ); /* perbaikan */
   }
-}
 
-/* =====================================================
+  /* =====================================================
 TIMER UJIAN
 ===================================================== */
 
-let waktu = 3600; // 3600 detik = 60 menit
+  let waktu = localStorage.getItem("waktu")
+    ? parseInt(localStorage.getItem("waktu"))
+    : 3600;
 
-function mulaiTimer() {
-  setInterval(function () {
-    let menit = Math.floor(waktu / 60);
-    let detik = waktu % 60;
+  function mulaiTimer() {
+    setInterval(function () {
+      let menit = Math.floor(waktu / 60);
+      let detik = waktu % 60;
 
-    document.getElementById("timer").innerText =
-      "Sisa waktu : " + menit + ":" + (detik < 10 ? "0" : "") + detik;
+      document.getElementById("timer").innerText =
+        "Sisa waktu : " + menit + ":" + (detik < 10 ? "0" : "") + detik;
 
-    waktu--;
+      waktu--;
 
-    if (waktu < 0) {
-      submitUjian();
-    }
-  }, 1000);
-}
+      // simpan ke localStorage
+      localStorage.setItem("waktu", waktu);
 
-mulaiTimer();
+      if (waktu < 0) {
+        submitUjian();
+      }
+    }, 1000);
+  }
 
-/* =====================================================
+  mulaiTimer();
+
+  /* =====================================================
 MENGHITUNG SKOR
 ===================================================== */
 
-function hitungSkor() {
-  let benar = 0;
+  function hitungSkor() {
+    let benar = 0;
 
-  for (let i = 0; i < semuaSoal.length; i++) {
-    let soal = semuaSoal[i];
-    let jawabanBenar = soal.jawaban;
-    let jawabanUserNow = jawabanUser[i];
+    for (let i = 0; i < semuaSoal.length; i++) {
+      let soal = semuaSoal[i];
+      let jawabanBenar = soal.jawaban;
+      let jawabanUserNow = jawabanUser[i];
 
-    if (jawabanBenar == jawabanUserNow) {
-      benar++;
+      if (jawabanBenar == jawabanUserNow) {
+        benar++;
+      }
     }
+
+    let nilai = (benar / semuaSoal.length) * 100;
+
+    return Math.round(nilai);
   }
 
-  let nilai = (benar / semuaSoal.length) * 100;
-
-  return Math.round(nilai);
-}
-
-/* =====================================================
-SUBMIT UJIAN
-===================================================== */
-
-/* =====================================================
-SUBMIT UJIAN
-===================================================== */
-
-/* =====================================================
-SUBMIT UJIAN
-===================================================== */
 
 function submitUjian() {
-  // simpan jawaban terakhir
   simpanJawaban();
 
-  // hitung nilai
   let nilai = hitungSkor();
 
-  // simpan nilai
   localStorage.setItem("nilai", nilai);
-
-  // simpan semua soal
   localStorage.setItem("soalUjian", JSON.stringify(semuaSoal));
-
-  // simpan semua jawaban user
   localStorage.setItem("jawabanUser", JSON.stringify(jawabanUser));
 
-  console.log("SOAL TERSIMPAN:", semuaSoal);
-  console.log("JAWABAN USER:", jawabanUser);
+  // HAPUS SESSION UJIAN
+  localStorage.removeItem("waktu");
+  localStorage.removeItem("indexSoal");
 
-  // pindah ke halaman skor
   window.location = "skor.html";
 }
-
-/* =====================================================
-SIMPAN DATA SOAL UNTUK HALAMAN SKOR
-===================================================== */

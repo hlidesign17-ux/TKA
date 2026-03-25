@@ -413,6 +413,7 @@ function hitungSkor() {
 }
 
 async function submitUjian() {
+  console.log("SUBMIT DIKLIK");
   simpanJawaban();
 
   let nilai = hitungSkor();

@@ -420,7 +420,8 @@ async function submitUjian() {
 
   let username = localStorage.getItem("username");
   let mapel = localStorage.getItem("mapel_pilih");
-
+  console.log("USERNAME:", username);
+  console.log("MAPEL:", mapel);
   //=====================================
   // KIRIM KE API
   //=====================================
@@ -428,6 +429,13 @@ async function submitUjian() {
   let url = api + "?aksi=submit" + "&username=" + username + "&mapel=" + mapel;
 
   await fetch(url);
+
+  // kasih delay biar spreadsheet update dulu
+  setTimeout(() => {
+    window.location = "skor.html";
+  }, 500);
+  let hasil = await res.text();
+  console.log("RESPON API:", hasil);
 
   //=====================================
   // SIMPAN LOCAL

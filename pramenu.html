@@ -1,38 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Pramenu TKA</title>
-<link rel="stylesheet" href="pramenu.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pramenu TKA</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="pramenu.css" />
+  </head>
 
-<body>
+  <body>
+    <div class="container">
+      <!-- PROFILE -->
+      <div class="card flex">
+        <img id="avatar" class="avatar" />
+        <div>
+          <h2 id="hi"></h2>
+        </div>
+      </div>
 
-<div class="container">
+      <!-- KALIMAT -->
+      <div class="card">
+        <p id="kalimat"></p>
+      </div>
 
-<h1 id="hi"></h1>
+      <!-- INFO SUBMIT -->
+      <div class="card">
+        <p id="infoSubmit"></p>
+      </div>
 
-<p id="kalimat"></p>
+      <!-- CATATAN -->
+      <div class="card">
+        <p id="catatan"></p>
+      </div>
 
-<button onclick="lanjut()">Lanjutkan</button>
+      <!-- BUTTON -->
+      <div class="card">
+        <button onclick="lanjut()">Mulai Ujian</button>
+      </div>
+    </div>
 
-</div>
-
-<script>
-
-let username = localStorage.getItem("username");
-let kalimat = localStorage.getItem("kalimat");
-
-document.getElementById("hi").innerText="Hi "+username;
-document.getElementById("kalimat").innerText=kalimat;
-
-function lanjut(){
-
-window.location="menu.html";
-
-}
-
-</script>
-
-</body>
+    <!-- JS -->
+    <script src="pramenu.js"></script>
+  </body>
 </html>

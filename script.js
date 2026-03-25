@@ -61,7 +61,7 @@ async function login() {
     localStorage.setItem("jenjang", data.jenjang);
     localStorage.setItem("mtk", data.mtk);
     localStorage.setItem("indo", data.indo);
-
+    localStorage.setItem("gender", data.gender);
     window.location = "pramenu.html";
   } else if (data.status == "blokir") {
     document.getElementById("error").innerText = data.pesan;

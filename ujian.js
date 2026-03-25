@@ -428,14 +428,15 @@ async function submitUjian() {
 
   let url = api + "?aksi=submit" + "&username=" + username + "&mapel=" + mapel;
 
-  await fetch(url);
+  let res = await fetch(url);
+  let hasil = await res.text();
 
-  // kasih delay biar spreadsheet update dulu
+  console.log("RESPON API:", hasil);
+
+  // kasih delay
   setTimeout(() => {
     window.location = "skor.html";
   }, 500);
-  let hasil = await res.text();
-  console.log("RESPON API:", hasil);
 
   //=====================================
   // SIMPAN LOCAL

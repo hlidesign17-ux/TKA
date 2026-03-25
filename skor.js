@@ -46,3 +46,7 @@ function lihatJawaban() {
     }
   }
 }
+
+function kembali() {
+  window.location.href = "pramenu.html";
+}

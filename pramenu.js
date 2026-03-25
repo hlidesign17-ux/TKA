@@ -1,3 +1,6 @@
+const api =
+  "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3Eh90GYOFVsl6Y8ovuRzDUrp7TAGGomk8eZX9n4/exec";
+
 //========================
 // AMBIL DATA LOCAL STORAGE
 //========================
@@ -31,7 +34,14 @@ if (gender == "male") {
 //========================
 
 function formatTanggal(tanggal) {
+  if (!tanggal || tanggal == "-") return "-";
+
+  // kalau sudah string dari API → langsung pakai
+  if (typeof tanggal === "string") return tanggal;
+
+  // fallback kalau Date object
   let t = new Date(tanggal);
+  if (isNaN(t)) return "-";
 
   let d = ("0" + t.getDate()).slice(-2);
   let m = ("0" + (t.getMonth() + 1)).slice(-2);
@@ -42,34 +52,6 @@ function formatTanggal(tanggal) {
 
   return d + "-" + m + "-" + y + " " + jam + ":" + menit;
 }
-
-//========================
-// DATA SEMENTARA (NANTI API)
-//========================
-
-let terakhirMtk = localStorage.getItem("last_mtk");
-let terakhirIndo = localStorage.getItem("last_indo");
-let jumlahMtk = localStorage.getItem("jumlah_mtk") || 0;
-let jumlahIndo = localStorage.getItem("jumlah_indo") || 0;
-
-//========================
-// INFO SUBMIT
-//========================
-
-let info = "";
-
-if (terakhirMtk) {
-  info += "Terakhir MTK: " + formatTanggal(terakhirMtk) + "<br>";
-}
-
-if (terakhirIndo) {
-  info += "Terakhir INDO: " + formatTanggal(terakhirIndo) + "<br>";
-}
-
-info += "Total Submit MTK: " + jumlahMtk + "<br>";
-info += "Total Submit INDO: " + jumlahIndo;
-
-document.getElementById("infoSubmit").innerHTML = info;
 
 //========================
 // CATATAN
@@ -84,3 +66,61 @@ document.getElementById("catatan").innerText = "Semangat mengerjakan ujian!";
 function lanjut() {
   window.location = "menu.html";
 }
+
+/* ---------------------------------------------------------------------------------------------------- */
+async function loadDashboard() {
+  try {
+    let username = localStorage.getItem("username");
+
+    let url = api + "?aksi=dashboard&username=" + username;
+    document.getElementById("infoSubmit").innerHTML = "Loading..."; /* --- */
+    let res = await fetch(url);
+    let data = await res.json();
+
+    console.log("DATA DASHBOARD:", data);
+
+    // ========================
+    // TEXT
+    // ========================
+    document.getElementById("hi").innerText =
+      "Selamat Datang, " + data.username;
+
+    document.getElementById("kalimat").innerText = data.kalimat;
+
+    // ========================
+    // AVATAR
+    // ========================
+    let avatar = document.getElementById("avatar");
+
+    if (data.gender == "male") {
+      avatar.src = "avatar/male.jpg";
+    } else {
+      avatar.src = "avatar/female.jpg";
+    }
+
+    // ========================
+    // INFO SUBMIT (FIX)
+    // ========================
+    let info = "";
+
+    info += "Terakhir MTK: " + formatTanggal(data.mtk_terakhir) + "<br>";
+    info += "Terakhir INDO: " + formatTanggal(data.indo_terakhir) + "<br>";
+    info += "Total Submit MTK: " + (data.mtk_jumlah || 0) + "<br>";
+    info += "Total Submit INDO: " + (data.indo_jumlah || 0);
+
+    document.getElementById("infoSubmit").innerHTML = info;
+
+    // ========================
+    // PESAN
+    // ========================
+    let pesanText = data.pesan || "Semangat mengerjakan ujian!";
+
+    document.getElementById("pesan").innerText = "Pesan Admin: " + pesanText;
+  } catch (err) {
+    console.error("ERROR DASHBOARD:", err);
+
+    document.getElementById("infoSubmit").innerHTML = "Gagal memuat data";
+  }
+}
+
+loadDashboard();

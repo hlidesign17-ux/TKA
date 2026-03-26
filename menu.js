@@ -6,8 +6,6 @@ window.onpopstate = function () {
   history.go(1);
 };
 
-
-
 // ===============================
 // cek login disetiap halaman
 // ===============================
@@ -154,7 +152,6 @@ MULAI UJIAN
 ===================================================== */
 
 async function mulaiUjian() {
-
   if (bankDipilih == "") {
     alert("Silakan pilih bank soal terlebih dahulu");
     return;
@@ -192,10 +189,7 @@ async function mulaiUjian() {
   localStorage.setItem("bank_pilih", bankDipilih);
 
   await fetch(
-    api +
-    "?aksi=pakai" +
-    "&username=" + username +
-    "&mapel=" + pilihanMapel
+    api + "?aksi=pakai" + "&username=" + username + "&mapel=" + pilihanMapel,
   );
 
   window.location = "ujian.html";

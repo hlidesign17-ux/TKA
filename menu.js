@@ -33,13 +33,13 @@ function tampilJenjang() {
   let html = "<h2>Pilih Jenjang</h2>";
 
   if (jenjangUser == "SD") {
-    html += "<button onclick=\"pilihJenjang('SD')\">SD</button>";
+    html += "<button onclick=\"pilihJenjang('SD', event)\">SD</button>";
     html += "<button disabled>SMP 🔒</button>";
   }
 
   if (jenjangUser == "SMP") {
     html += "<button disabled>SD 🔒</button>";
-    html += "<button onclick=\"pilihJenjang('SMP')\">SMP</button>";
+    html += "<button onclick=\"pilihJenjang('SMP', event)\">SMP</button>";
   }
 
   html += "<br><br>";
@@ -52,8 +52,13 @@ function tampilJenjang() {
 PILIH JENJANG
 ===================================================== */
 
-function pilihJenjang(j) {
+function pilihJenjang(j, e) {
   pilihanJenjang = j;
+
+  let buttons = document.querySelectorAll("#menuArea button");
+  buttons.forEach((btn) => btn.classList.remove("selected"));
+
+  e.target.classList.add("selected");
 }
 
 /* =====================================================

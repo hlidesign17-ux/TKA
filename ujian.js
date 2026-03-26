@@ -444,7 +444,7 @@ async function submitUjian() {
   let url = api + "?aksi=submit" + "&username=" + username + "&mapel=" + mapel;
 
   let res = await fetch(url);
-  let hasil = await res.json(); // ⬅️ UBAH ke JSON
+  let hasil = JSON.parse(await res.text());
 
   console.log("RESPON API:", hasil);
 

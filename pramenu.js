@@ -1,3 +1,11 @@
+// ===============================
+// ANTI BACK
+// ===============================
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+  history.go(1);
+};
+
 const api =
   "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3Eh90GYOFVsl6Y8ovuRzDUrp7TAGGomk8eZX9n4/exec";
 

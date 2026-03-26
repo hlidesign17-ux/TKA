@@ -1,3 +1,18 @@
+// ===============================
+// ANTI BACK
+// ===============================
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+  history.go(1);
+};
+
+// ===============================
+// cek login disetiap halaman
+// ===============================
+if (!localStorage.getItem("username")) {
+  window.location = "index.html";
+}
+
 //==================================================
 // KONFIGURASI API
 //==================================================
@@ -414,14 +429,14 @@ function hitungSkor() {
 
 async function submitUjian() {
   console.log("SUBMIT DIKLIK");
+
   simpanJawaban();
 
   let nilai = hitungSkor();
 
   let username = localStorage.getItem("username");
   let mapel = localStorage.getItem("mapel_pilih");
-  console.log("USERNAME:", username);
-  console.log("MAPEL:", mapel);
+
   //=====================================
   // KIRIM KE API
   //=====================================
@@ -429,23 +444,34 @@ async function submitUjian() {
   let url = api + "?aksi=submit" + "&username=" + username + "&mapel=" + mapel;
 
   let res = await fetch(url);
-  let hasil = await res.text();
+  let hasil = await res.json(); // ⬅️ UBAH ke JSON
 
   console.log("RESPON API:", hasil);
 
-  // kasih delay
-  setTimeout(() => {
-    window.location = "skor.html";
-  }, 500);
+  //=====================================
+  // CEK JATAH HABIS
+  //=====================================
+
+  if (hasil.status == "habis") {
+    alert("Jatah ujian kamu sudah habis!");
+
+    localStorage.clear(); // hapus semua data
+    window.location = "index.html"; // paksa logout
+    return;
+  }
 
   //=====================================
   // SIMPAN LOCAL
   //=====================================
 
   localStorage.setItem("nilai", nilai);
-
   localStorage.setItem("soalUjian", JSON.stringify(semuaSoal));
   localStorage.setItem("jawabanUser", JSON.stringify(jawabanUser));
+
+  // bersihin biar tidak bisa back ulang
+  localStorage.removeItem("indexSoal");
+  localStorage.removeItem("waktu");
+  localStorage.removeItem("jawabanUser"); // ⬅️ INI YANG KURANG
 
   //=====================================
   // PINDAH HALAMAN

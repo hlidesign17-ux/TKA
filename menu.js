@@ -1,3 +1,20 @@
+// ===============================
+// ANTI BACK
+// ===============================
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+  history.go(1);
+};
+
+
+
+// ===============================
+// cek login disetiap halaman
+// ===============================
+if (!localStorage.getItem("username")) {
+  window.location = "index.html";
+}
+
 /* =====================================================
 AMBIL DATA USER DARI LOCAL STORAGE
 ===================================================== */
@@ -137,13 +154,29 @@ MULAI UJIAN
 ===================================================== */
 
 async function mulaiUjian() {
-
   if (bankDipilih == "") {
     alert("Silakan pilih bank soal terlebih dahulu");
     return;
   }
 
-  // simpan pilihan
+  // ==============================
+  // CEK JATAH DULU (PENTING)
+  // ==============================
+
+  if (pilihanMapel == "MTK" && mtk <= 0) {
+    alert("Jatah MTK kamu sudah habis!");
+    return;
+  }
+
+  if (pilihanMapel == "INDO" && indo <= 0) {
+    alert("Jatah B.INDO kamu sudah habis!");
+    return;
+  }
+
+  // ==============================
+  // SIMPAN PILIHAN
+  // ==============================
+
   localStorage.setItem("jenjang_pilih", pilihanJenjang);
   localStorage.setItem("mapel_pilih", pilihanMapel);
   localStorage.setItem("bank_pilih", bankDipilih);
@@ -151,15 +184,18 @@ async function mulaiUjian() {
   // ambil username
   let username = localStorage.getItem("username");
 
-  // panggil API pencatatan pemakaian
+  // ==============================
+  // CATAT PEMAKAIAN KE API
+  // ==============================
+
   await fetch(
-    api +
-    "?aksi=pakai" +
-    "&username=" + username +
-    "&mapel=" + pilihanMapel
+    api + "?aksi=pakai" + "&username=" + username + "&mapel=" + pilihanMapel,
   );
 
-  // pindah ke halaman ujian
+  // ==============================
+  // MASUK UJIAN
+  // ==============================
+
   window.location = "ujian.html";
 }
 

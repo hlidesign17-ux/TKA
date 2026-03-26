@@ -466,7 +466,7 @@ async function submitUjian() {
 
   localStorage.setItem("nilai", nilai);
   localStorage.setItem("soalUjian", JSON.stringify(semuaSoal));
-  localStorage.setItem("jawabanUser", JSON.stringify(jawabanUser));
+  localStorage.setItem("jawabanTerakhir", JSON.stringify(jawabanUser));
 
   // bersihin biar tidak bisa back ulang
   localStorage.removeItem("indexSoal");

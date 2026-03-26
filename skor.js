@@ -19,7 +19,7 @@ AMBIL DATA LOCAL STORAGE
 ===================================================== */
 
 let soal = JSON.parse(localStorage.getItem("soalUjian")) || [];
-let jawabanUser = JSON.parse(localStorage.getItem("jawabanUser")) || [];
+let jawabanUser = JSON.parse(localStorage.getItem("jawabanTerakhir")) || [];
 
 /* =====================================================
 FUNGSI MENAMPILKAN JAWABAN

@@ -151,48 +151,78 @@ MULAI UJIAN
 MULAI UJIAN
 ===================================================== */
 
+let sedangMulai = false;
+
 async function mulaiUjian() {
+  // 🔒 ANTI SPAM
+  if (sedangMulai) return;
+  sedangMulai = true;
+
   if (bankDipilih == "") {
     alert("Silakan pilih bank soal terlebih dahulu");
+    sedangMulai = false;
     return;
+  }
+
+  let btn = document.getElementById("btnMulai");
+
+  // 🔄 LOADING BUTTON
+  if (btn) {
+    btn.disabled = true;
+    btn.classList.add("loading");
+    btn.innerHTML = 'Loading <span class="spinner"></span>';
   }
 
   let username = localStorage.getItem("username");
 
-  // =========================
-  // 🔥 CEK STATUS USER DARI API
-  // =========================
-  let res = await fetch(api + "?aksi=dashboard&username=" + username);
-  let data = await res.json();
+  try {
+    // =========================
+    // 🔥 CEK STATUS USER DARI API
+    // =========================
+    let res = await fetch(api + "?aksi=dashboard&username=" + username);
+    let data = await res.json();
 
-  // ambil data penting
-  let sisa_mtk = data.sisa_mtk;
-  let submit_mtk = data.mtk_jumlah;
-  let limit_mtk = data.limit_mtk;
+    let sisa_mtk = data.sisa_mtk;
+    let submit_mtk = data.mtk_jumlah;
+    let limit_mtk = data.limit_mtk;
 
-  // =========================
-  // 🔒 BLOKIR TOTAL
-  // =========================
-  if (sisa_mtk == 0 && submit_mtk == limit_mtk) {
-    alert("Jatah ujian sudah habis!");
+    // =========================
+    // 🔒 BLOKIR TOTAL
+    // =========================
+    if (sisa_mtk == 0 && submit_mtk == limit_mtk) {
+      alert("Jatah ujian sudah habis!");
 
-    localStorage.clear();
-    window.location = "index.html";
-    return;
+      localStorage.clear();
+      window.location = "index.html";
+      return;
+    }
+
+    // =========================
+    // LANJUT NORMAL
+    // =========================
+    localStorage.setItem("jenjang_pilih", pilihanJenjang);
+    localStorage.setItem("mapel_pilih", pilihanMapel);
+    localStorage.setItem("bank_pilih", bankDipilih);
+
+    await fetch(
+      api + "?aksi=pakai" + "&username=" + username + "&mapel=" + pilihanMapel,
+    );
+
+    window.location = "ujian.html";
+  } catch (err) {
+    console.error("ERROR MULAI:", err);
+
+    alert("Gagal memulai ujian");
+
+    // 🔓 BALIKIN BUTTON kalau gagal
+    if (btn) {
+      btn.disabled = false;
+      btn.classList.remove("loading");
+      btn.innerHTML = "Mulai";
+    }
+
+    sedangMulai = false;
   }
-
-  // =========================
-  // LANJUT NORMAL
-  // =========================
-  localStorage.setItem("jenjang_pilih", pilihanJenjang);
-  localStorage.setItem("mapel_pilih", pilihanMapel);
-  localStorage.setItem("bank_pilih", bankDipilih);
-
-  await fetch(
-    api + "?aksi=pakai" + "&username=" + username + "&mapel=" + pilihanMapel,
-  );
-
-  window.location = "ujian.html";
 }
 
 /* =====================================================

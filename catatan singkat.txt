@@ -1,0 +1,38 @@
+3-2-1-3-3
+2-2-1-3-3
+
+index.html -- script.js
+pramenu.html -- pramenu.js -- pramenu.css
+menu.html -- menu.js -- menu.css
+
+--
+// ===============================
+// ANTI BACK
+// ===============================
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+  history.go(1);
+};
+
+------
+saya ingin di bagian skor.html tetap bisa lihat jawaban user untuk membandingkan dengan
+jawaban sistem. namun jangan sampai nanti user saat masuk ke bank soal yang sama jawaban sebelumnya di ujian masih ada
+
+OK. SAYA ADA PROBLEM
+JADI SAAT SAYA MENCOBA MENGGUNAKAN AKUN YANG HANYA PUNYA 1X PERCOBAAN
+saya submit, lalu muncul notif jatah ujian anda telah habis,
+lalu kembali ke index.html (menu login) tanpa sempat user melihat skor dan jawabannya
+
+MEMANG TIDAK ADA KENDALA SETELAH SAYA HAPUS, NAMUN KETIKA MENEKAN TOMBOL "KEMBALI KE MENU" (pramenu.html)
+yang terjadi adalah user 1x percobaan kembali ke menu (pramenu.html). dan saat menekan mulai user bisa lanjut ujian seperti biasa.
+seharusnya terblokir dan yang terjadi saat menekan tombol mulai adalah user kembali ke halaman login karna percobaan habis. bedakan jika percobaan belum habis.
+di sheet penggunaan terkahir submit dan jumlah submit juga tidak muncul update angka nya
+
+
+tunggu. saya kirimkan dulu sheetnya.
+USERNAME	TIER	LIMIT_MTK	LIMIT_INDO	PAKAI_MTK	PAKAI_INDO	SISA_MTK	SISA_INDO	TERAKHIR_LOGIN	TERAKHIR_SUBMIT_MTK	TERAKHIR_SUBMIT_INDO	KUANTI_SUBMIT_MTK	KUANTI_SUBMIT_INDO	WARNING	PESAN_ADMIN
+USERNAME8	SMP_4	999	999	14	0	967	999	26/03/2026 14:58:24	26/03/2026		14			belum ada pesan
+
+saya ingin jika Kolom 7 sudah mencapai angka 0 dan kolom 12 sudah sama dengan kolom 3 serta
+jika kolom 8 sudah mencapai angka 0 dan kolom 13 sudah sama denan kolom 4 maka
+user pada saat menekan tombol mulai ujian akan menuju ke login (terblokir) untuk akses lagi

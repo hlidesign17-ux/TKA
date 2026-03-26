@@ -154,47 +154,59 @@ MULAI UJIAN
 ===================================================== */
 
 async function mulaiUjian() {
+
   if (bankDipilih == "") {
     alert("Silakan pilih bank soal terlebih dahulu");
     return;
   }
 
-  // ==============================
-  // CEK JATAH DULU (PENTING)
-  // ==============================
+  let username = localStorage.getItem("username");
 
-  if (pilihanMapel == "MTK" && mtk <= 0) {
-    alert("Jatah MTK kamu sudah habis!");
+  // 🔥 AMBIL DATA TERBARU
+  let res = await fetch(api + "?aksi=dashboard&username=" + username);
+  let data = await res.json();
+
+  // =========================
+  // 🔒 CEK BLOKIR MTK
+  // =========================
+  if (
+    pilihanMapel == "MTK" &&
+    data.sisa_mtk <= 0 &&
+    data.mtk_jumlah >= data.limit_mtk
+  ) {
+    alert("Jatah MTK sudah habis!");
+    localStorage.clear();
+    window.location = "index.html";
     return;
   }
 
-  if (pilihanMapel == "INDO" && indo <= 0) {
-    alert("Jatah B.INDO kamu sudah habis!");
+  // =========================
+  // 🔒 CEK BLOKIR INDO
+  // =========================
+  if (
+    pilihanMapel == "INDO" &&
+    data.sisa_indo <= 0 &&
+    data.indo_jumlah >= data.limit_indo
+  ) {
+    alert("Jatah INDO sudah habis!");
+    localStorage.clear();
+    window.location = "index.html";
     return;
   }
 
-  // ==============================
-  // SIMPAN PILIHAN
-  // ==============================
-
+  // =========================
+  // LANJUT NORMAL
+  // =========================
   localStorage.setItem("jenjang_pilih", pilihanJenjang);
   localStorage.setItem("mapel_pilih", pilihanMapel);
   localStorage.setItem("bank_pilih", bankDipilih);
 
-  // ambil username
-  let username = localStorage.getItem("username");
-
-  // ==============================
-  // CATAT PEMAKAIAN KE API
-  // ==============================
-
   await fetch(
-    api + "?aksi=pakai" + "&username=" + username + "&mapel=" + pilihanMapel,
+    api +
+    "?aksi=pakai" +
+    "&username=" + username +
+    "&mapel=" + pilihanMapel
   );
-
-  // ==============================
-  // MASUK UJIAN
-  // ==============================
 
   window.location = "ujian.html";
 }

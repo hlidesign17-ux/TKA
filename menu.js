@@ -162,33 +162,23 @@ async function mulaiUjian() {
 
   let username = localStorage.getItem("username");
 
-  // 🔥 AMBIL DATA TERBARU
+  // =========================
+  // 🔥 CEK STATUS USER DARI API
+  // =========================
   let res = await fetch(api + "?aksi=dashboard&username=" + username);
   let data = await res.json();
 
-  // =========================
-  // 🔒 CEK BLOKIR MTK
-  // =========================
-  if (
-    pilihanMapel == "MTK" &&
-    data.sisa_mtk <= 0 &&
-    data.mtk_jumlah >= data.limit_mtk
-  ) {
-    alert("Jatah MTK sudah habis!");
-    localStorage.clear();
-    window.location = "index.html";
-    return;
-  }
+  // ambil data penting
+  let sisa_mtk = data.sisa_mtk;
+  let submit_mtk = data.mtk_jumlah;
+  let limit_mtk = data.limit_mtk;
 
   // =========================
-  // 🔒 CEK BLOKIR INDO
+  // 🔒 BLOKIR TOTAL
   // =========================
-  if (
-    pilihanMapel == "INDO" &&
-    data.sisa_indo <= 0 &&
-    data.indo_jumlah >= data.limit_indo
-  ) {
-    alert("Jatah INDO sudah habis!");
+  if (sisa_mtk == 0 && submit_mtk == limit_mtk) {
+    alert("Jatah ujian sudah habis!");
+
     localStorage.clear();
     window.location = "index.html";
     return;

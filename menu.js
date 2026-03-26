@@ -122,7 +122,7 @@ function lanjutBankSoal() {
   html += "<br><br>";
 
   html += "<button onclick='lanjutMapel()'>Sebelumnya</button>";
-  html += "<button onclick='mulaiUjian()'>Mulai</button>";
+  html += "<button id='btnMulai' onclick='mulaiUjian()'>Mulai</button>";
 
   document.getElementById("menuArea").innerHTML = html;
 }

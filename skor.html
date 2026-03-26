@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <head>
     <title>Hasil Ujian</title>
 
@@ -13,44 +14,54 @@
         font-family: "Poppins", sans-serif;
         background: linear-gradient(135deg, #eef2ff, #f8fafc);
         text-align: center;
-        padding: 60px;
+        padding: 20px;
+        margin: 0;
       }
 
       .box {
         background: white;
-        padding: 40px;
+        padding: 25px;
         display: inline-block;
         border-radius: 12px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        width: 800px;
+        width: 100%;
+        max-width: 800px;
       }
 
       .nilai {
-        font-size: 70px;
+        font-size: 60px;
         font-weight: 600;
         color: #22c55e;
         margin-bottom: 20px;
       }
 
       button {
-        padding: 12px 25px;
+        padding: 12px 20px;
         border: none;
         border-radius: 6px;
         background: #3b82f6;
         color: white;
         cursor: pointer;
         font-family: "Poppins";
+        margin: 5px;
       }
 
       button:hover {
         opacity: 0.9;
       }
 
+      /* TABLE */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
       table {
         border-collapse: collapse;
         width: 100%;
-        margin-top: 30px;
+        margin-top: 20px;
         display: none;
+        min-width: 400px; /* supaya tidak gepeng */
       }
 
       th,
@@ -70,6 +81,25 @@
 
       .salah {
         background: #fee2e2;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 600px) {
+        .nilai {
+          font-size: 40px;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+
+        .box {
+          padding: 20px;
+        }
+
+        button {
+          width: 100%;
+        }
       }
     </style>
   </head>

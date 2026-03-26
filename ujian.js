@@ -427,8 +427,25 @@ function hitungSkor() {
   return Math.round(nilai);
 }
 
+let sudahSubmit = false;
+
 async function submitUjian() {
   console.log("SUBMIT DIKLIK");
+
+  // 🔒 ANTI SPAM
+  if (sudahSubmit) return;
+  sudahSubmit = true;
+
+  // 🔒 AMBIL BUTTON
+  let btn = document.getElementById("btnSubmit");
+  let text = document.getElementById("textSubmit");
+
+  // 🔄 LOADING UI
+  if (btn && text) {
+    btn.disabled = true;
+    btn.classList.add("loading");
+    text.innerHTML = 'Loading <span class="spinner"></span>';
+  }
 
   simpanJawaban();
 
@@ -443,27 +460,42 @@ async function submitUjian() {
 
   let url = api + "?aksi=submit" + "&username=" + username + "&mapel=" + mapel;
 
-  let res = await fetch(url);
-  let hasil = JSON.parse(await res.text());
+  try {
+    let res = await fetch(url);
+    let hasil = JSON.parse(await res.text());
 
-  console.log("RESPON API:", hasil);
+    console.log("RESPON API:", hasil);
 
-  //=====================================
-  // SIMPAN LOCAL
-  //=====================================
+    //=====================================
+    // SIMPAN LOCAL (TETAP SAMA)
+    //=====================================
 
-  localStorage.setItem("nilai", nilai);
-  localStorage.setItem("soalUjian", JSON.stringify(semuaSoal));
-  localStorage.setItem("jawabanTerakhir", JSON.stringify(jawabanUser));
+    localStorage.setItem("nilai", nilai);
+    localStorage.setItem("soalUjian", JSON.stringify(semuaSoal));
+    localStorage.setItem("jawabanTerakhir", JSON.stringify(jawabanUser));
 
-  // bersihin biar tidak bisa back ulang
-  localStorage.removeItem("indexSoal");
-  localStorage.removeItem("waktu");
-  localStorage.removeItem("jawabanUser"); // ⬅️ INI YANG KURANG
+    // bersihin biar tidak bisa back ulang
+    localStorage.removeItem("indexSoal");
+    localStorage.removeItem("waktu");
+    localStorage.removeItem("jawabanUser");
 
-  //=====================================
-  // PINDAH HALAMAN
-  //=====================================
+    //=====================================
+    // PINDAH HALAMAN
+    //=====================================
 
-  window.location = "skor.html";
+    window.location = "skor.html";
+  } catch (err) {
+    console.error("ERROR SUBMIT:", err);
+
+    alert("Terjadi kesalahan saat submit!");
+
+    // 🔓 BALIKIN BUTTON kalau gagal
+    if (btn && text) {
+      btn.disabled = false;
+      btn.classList.remove("loading");
+      text.innerHTML = "Submit";
+    }
+
+    sudahSubmit = false;
+  }
 }

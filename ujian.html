@@ -113,6 +113,28 @@ FONT GOOGLE
         max-height: 300px;
         border-radius: 6px;
       }
+
+      .loading {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .spinner {
+        border: 3px solid #ccc;
+        border-top: 3px solid #fff;
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+        animation: spin 1s linear infinite;
+        margin-left: 8px;
+      }
+
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     </style>
   </head>
 
@@ -130,7 +152,9 @@ FONT GOOGLE
 
       <button id="btnNext" onclick="selanjutnya()">Selanjutnya</button>
 
-      <button id="btnSubmit" onclick="submitUjian()">Submit</button>
+      <button id="btnSubmit" onclick="submitUjian()">
+        <span id="textSubmit">Submit</span>
+      </button>
     </div>
 
     <script src="ujian.js"></script>

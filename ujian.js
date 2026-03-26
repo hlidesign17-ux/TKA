@@ -449,18 +449,6 @@ async function submitUjian() {
   console.log("RESPON API:", hasil);
 
   //=====================================
-  // CEK JATAH HABIS
-  //=====================================
-
-  if (hasil.status == "habis") {
-    alert("Jatah ujian kamu sudah habis!");
-
-    localStorage.clear(); // hapus semua data
-    window.location = "index.html"; // paksa logout
-    return;
-  }
-
-  //=====================================
   // SIMPAN LOCAL
   //=====================================
 

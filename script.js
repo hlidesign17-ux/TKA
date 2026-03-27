@@ -44,9 +44,12 @@ async function login() {
 
   let url =
     "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3Eh90GYOFVsl6Y8ovuRzDUrp7TAGGomk8eZX9n4/exec" +
-    "?username=" + encodeURIComponent(username) +
-    "&password=" + encodeURIComponent(password) +
-    "&token=" + encodeURIComponent(token);
+    "?username=" +
+    encodeURIComponent(username) +
+    "&password=" +
+    encodeURIComponent(password) +
+    "&token=" +
+    encodeURIComponent(token);
 
   let response = await fetch(url);
   let data = await response.json();

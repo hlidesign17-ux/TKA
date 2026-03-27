@@ -187,15 +187,25 @@ async function mulaiUjian() {
     let res = await fetch(api + "?aksi=dashboard&username=" + username);
     let data = await res.json();
 
-    let sisa_mtk = data.sisa_mtk;
-    let submit_mtk = data.mtk_jumlah;
-    let limit_mtk = data.limit_mtk;
+    let sisa;
+    let submit;
+    let limit;
 
-    // =========================
-    // 🔒 BLOKIR TOTAL
-    // =========================
-    if (sisa_mtk == 0 && submit_mtk == limit_mtk) {
-      alert("Jatah ujian sudah habis!");
+    if (pilihanMapel == "MTK") {
+      sisa = data.sisa_mtk;
+      submit = data.mtk_jumlah;
+      limit = data.limit_mtk;
+    }
+
+    if (pilihanMapel == "INDO") {
+      sisa = data.sisa_indo;
+      submit = data.indo_jumlah;
+      limit = data.limit_indo;
+    }
+
+    if (sisa == 0 && submit == limit) {
+      alert("Jatah ujian untuk mapel ini sudah habis!");
+      return;
 
       localStorage.clear();
       window.location = "index.html";

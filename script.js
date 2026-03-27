@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
    ===================================================== */
 
 async function login() {
-  let username = document.getElementById("username").value;
-  let password = document.getElementById("password").value;
-  let token = document.getElementById("token").value;
+  let username = document.getElementById("username").value.trim();
+  let password = document.getElementById("password").value.trim();
+  let token = document.getElementById("token").value.trim();
 
   let url =
     "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3Eh90GYOFVsl6Y8ovuRzDUrp7TAGGomk8eZX9n4/exec" +

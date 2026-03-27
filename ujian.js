@@ -477,6 +477,8 @@ async function submitUjian() {
     "&waktu=" +
     waktuPakai;
 
+  console.log("URL SUBMIT:", url); // 🔥 tambah ini buat debug
+
   try {
     let res = await fetch(url);
     let hasil = JSON.parse(await res.text());

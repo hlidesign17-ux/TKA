@@ -1,0 +1,30 @@
+body {
+  font-family: Arial;
+  background: #f5f7fb;
+  text-align: center;
+}
+
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background: #4e4376;
+  color: white;
+}
+
+.gold { background: gold; }
+.silver { background: silver; }
+.bronze { background: #cd7f32; }

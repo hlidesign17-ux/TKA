@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="leaderboard.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>🏆 Leaderboard</h1>
+
+    <select id="mapel">
+      <option value="MTK">MTK</option>
+      <option value="INDO">INDO</option>
+    </select>
+
+    <select id="bank">
+      <option value="1">Bank 1</option>
+      <option value="2">Bank 2</option>
+      <option value="3">Bank 3</option>
+    </select>
+
+    <button onclick="loadLeaderboard()">Tampilkan</button>
+
+    <table id="tabel">
+      <tr>
+        <th>Rank</th>
+        <th>Username</th>
+        <th>Nilai</th>
+        <th>Waktu</th>
+      </tr>
+    </table>
+  </div>
+
+  <script src="leaderboard.js"></script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+script.js
 /* =====================================================
    FUNGSI 1 : MENAMPILKAN / MENYEMBUNYIKAN PASSWORD
    Digunakan saat icon mata diklik

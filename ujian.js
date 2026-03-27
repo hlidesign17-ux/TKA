@@ -458,7 +458,18 @@ async function submitUjian() {
   // KIRIM KE API
   //=====================================
 
-  let url = api + "?aksi=submit" + "&username=" + username + "&mapel=" + mapel;
+  let bank = localStorage.getItem("bank_pilih");
+
+// hitung waktu yang dipakai
+let waktuPakai = 3600 - waktu;
+
+let url = api +
+  "?aksi=submit" +
+  "&username=" + username +
+  "&mapel=" + mapel +
+  "&bank=" + bank +
+  "&nilai=" + nilai +
+  "&waktu=" + waktuPakai;
 
   try {
     let res = await fetch(url);

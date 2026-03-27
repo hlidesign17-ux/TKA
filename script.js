@@ -42,6 +42,8 @@ async function login() {
   let password = document.getElementById("password").value.trim();
   let token = document.getElementById("token").value.trim();
 
+  console.log("LOGIN:", username, password, token);
+
   let url =
     "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3Eh90GYOFVsl6Y8ovuRzDUrp7TAGGomk8eZX9n4/exec" +
     "?username=" +

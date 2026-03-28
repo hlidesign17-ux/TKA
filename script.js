@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
    ===================================================== */
 
 async function login() {
+  // 🔥 BONUS (hapus error lama)
+  document.getElementById("error").innerText = "";
   let username = document.getElementById("username").value.trim();
   let password = document.getElementById("password").value.trim();
   let token = document.getElementById("token").value.trim();
@@ -51,26 +53,38 @@ async function login() {
     "&token=" +
     encodeURIComponent(token);
 
-  let response = await fetch(url);
-  let data = await response.json();
+  // 🔥 TAMPILKAN LOADING
+  document.getElementById("loadingOverlay").style.display = "flex";
 
-  console.log(data); // 🔥 penting untuk debug
+  try {
+    let response = await fetch(url);
+    let data = await response.json();
 
-  if (data.status == "success") {
-    localStorage.setItem("username", data.username);
-    localStorage.setItem("kalimat", data.kalimat);
+    console.log(data);
 
-    localStorage.setItem("jenjang", data.jenjang);
-    localStorage.setItem("mtk", data.mtk);
-    localStorage.setItem("indo", data.indo);
-    localStorage.setItem("gender", data.gender);
+    if (data.status == "success") {
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("kalimat", data.kalimat);
 
-    window.location = "pramenu.html";
-  } else if (data.status == "blokir") {
-    document.getElementById("error").innerText = data.pesan;
-  } else {
-    document.getElementById("error").innerText =
-      "username/password/token yang anda masukkan salah";
+      localStorage.setItem("jenjang", data.jenjang);
+      localStorage.setItem("mtk", data.mtk);
+      localStorage.setItem("indo", data.indo);
+      localStorage.setItem("gender", data.gender);
+
+      window.location = "pramenu.html";
+    } else if (data.status == "blokir") {
+      document.getElementById("loadingOverlay").style.display = "none"; // 🔥 WAJIB
+      document.getElementById("error").innerText = data.pesan;
+    } else {
+      document.getElementById("loadingOverlay").style.display = "none"; // 🔥 WAJIB
+      document.getElementById("error").innerText =
+        "username/password/token salah";
+    }
+  } catch (err) {
+    console.error(err);
+
+    document.getElementById("loadingOverlay").style.display = "none"; // 🔥 WAJIB
+    document.getElementById("error").innerText = "Terjadi kesalahan koneksi";
   }
 }
 

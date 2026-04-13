@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <head>
     <!-- =====================================================
 FONT GOOGLE
@@ -110,9 +110,12 @@ FONT GOOGLE
       }
 
       .gambar-soal img {
+        width: 100%;
         max-width: 100%;
-        max-height: 300px;
-        border-radius: 6px;
+        height: auto;
+        max-height: 80vh; /* 🔥 hampir full layar */
+        object-fit: contain;
+        border-radius: 10px;
       }
 
       .loading {

@@ -65,28 +65,38 @@ function pilihJenjang(j, e) {
 LANJUT KE MENU MAPEL
 ===================================================== */
 
-function lanjutMapel() {
+async function lanjutMapel() {
   if (pilihanJenjang == "") {
     alert("Silakan pilih jenjang terlebih dahulu");
     return;
   }
 
+  let username = localStorage.getItem("username");
+
+  // 🔥 ambil data terbaru dari server
+  let res = await fetch(api + "?aksi=dashboard&username=" + username);
+  let data = await res.json();
+
+  let sisaMtk = data.sisa_mtk;
+  let sisaIndo = data.sisa_indo;
+
   let html = "<h2>Pilih Mata Pelajaran</h2>";
 
-  if (mtk > 0) {
+  // ✅ MTK
+  if (sisaMtk > 0) {
     html += "<button onclick=\"pilihMapel('MTK')\">MTK</button>";
   } else {
     html += "<button disabled>MTK 🔒</button>";
   }
 
-  if (indo > 0) {
+  // ✅ INDO
+  if (sisaIndo > 0) {
     html += "<button onclick=\"pilihMapel('INDO')\">B.INDO</button>";
   } else {
     html += "<button disabled>B.INDO 🔒</button>";
   }
 
   html += "<br><br>";
-
   html += "<button onclick='tampilJenjang()'>Sebelumnya</button>";
   html += "<button onclick='lanjutBankSoal()'>Selanjutnya</button>";
 
@@ -203,7 +213,7 @@ async function mulaiUjian() {
       limit = data.limit_indo;
     }
 
-    if (sisa == 0 && submit == limit) {
+    if (sisa <= 0) {
       alert("Jatah ujian untuk mapel ini sudah habis!");
       return;
 

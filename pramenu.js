@@ -132,3 +132,12 @@ async function loadDashboard() {
 }
 
 loadDashboard();
+
+function logout() {
+  let konfirmasi = confirm("Yakin ingin logout?");
+
+  if (konfirmasi) {
+    localStorage.clear();
+    window.location = "index.html";
+  }
+}

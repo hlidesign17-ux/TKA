@@ -108,10 +108,11 @@ function tampilSoal() {
     // tampilkan gambar jika ada
     if (soal.gambar) {
       html += `
-    <div class="gambar-soal">
-      <img src="gambar/${soal.gambar}">
-    </div>
-    `;
+<div class="gambar-soal">
+  <div class="img-loading">Memuat gambar...</div>
+  <img src="gambar/${soal.gambar}" onload="gambarLoaded(this)" style="display:none;">
+</div>
+`;
     }
     //batas gambar ditampilkan
 
@@ -144,10 +145,11 @@ function tampilSoal() {
     // tampilkan gambar jika ada
     if (soal.gambar) {
       html += `
-    <div class="gambar-soal">
-      <img src="gambar/${soal.gambar}">
-    </div>
-    `;
+<div class="gambar-soal">
+  <div class="img-loading">Memuat gambar...</div>
+  <img src="gambar/${soal.gambar}" onload="gambarLoaded(this)" style="display:none;">
+</div>
+`;
     }
     //batas gambar ditampilkan
     html += `<p>${soal.pertanyaan}</p>`;
@@ -175,10 +177,11 @@ function tampilSoal() {
     // tampilkan gambar jika ada
     if (soal.gambar) {
       html += `
-    <div class="gambar-soal">
-      <img src="gambar/${soal.gambar}">
-    </div>
-    `;
+<div class="gambar-soal">
+  <div class="img-loading">Memuat gambar...</div>
+  <img src="gambar/${soal.gambar}" onload="gambarLoaded(this)" style="display:none;">
+</div>
+`;
     }
     //batas gambar ditampilkan
     html += `<p>${soal.pertanyaan}</p>`;
@@ -517,4 +520,14 @@ async function submitUjian() {
 
     sudahSubmit = false;
   }
+}
+
+
+function gambarLoaded(img) {
+  // tampilkan gambar
+  img.style.display = "block";
+
+  // hilangkan loading
+  let loading = img.parentElement.querySelector(".img-loading");
+  if (loading) loading.style.display = "none";
 }

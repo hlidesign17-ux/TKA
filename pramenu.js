@@ -23,9 +23,9 @@ let sekolah = localStorage.getItem("sekolah"); // ✅ TAMBAHAN
 //========================
 
 document.getElementById("hi").innerText = "Selamat Datang, " + username;
-document.getElementById("sekolah").innerText = sekolah;
+document.getElementById("sekolah").innerText = data.sekolah;
 
-document.getElementById("kalimat").innerText = kalimat;
+document.getElementById("kalimat").innerText = data.kalimat;
 
 //========================
 // SET AVATAR

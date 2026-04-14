@@ -72,7 +72,13 @@ document.getElementById("catatan").innerText = "Semangat mengerjakan ujian!";
 //========================
 
 function lanjut() {
-  window.location = "menu.html";
+  // tampilkan loading
+  document.getElementById("loadingOverlay").style.display = "flex";
+
+  // delay biar smooth (opsional)
+  setTimeout(() => {
+    window.location = "menu.html";
+  }, 500);
 }
 
 /* ---------------------------------------------------------------------------------------------------- */

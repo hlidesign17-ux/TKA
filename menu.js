@@ -71,36 +71,49 @@ async function lanjutMapel() {
     return;
   }
 
-  let username = localStorage.getItem("username");
+  let loading = document.getElementById("loadingOverlay");
 
-  // 🔥 ambil data terbaru dari server
-  let res = await fetch(api + "?aksi=dashboard&username=" + username);
-  let data = await res.json();
+  // 🔥 TAMPILKAN LOADING
+  loading.style.display = "flex";
 
-  let sisaMtk = data.sisa_mtk;
-  let sisaIndo = data.sisa_indo;
+  try {
+    let username = localStorage.getItem("username");
 
-  let html = "<h2>Pilih Mata Pelajaran</h2>";
+    // 🔥 ambil data terbaru dari server
+    let res = await fetch(api + "?aksi=dashboard&username=" + username);
+    let data = await res.json();
 
-  // ✅ MTK
-  if (sisaMtk > 0) {
-    html += "<button onclick=\"pilihMapel('MTK')\">MTK</button>";
-  } else {
-    html += "<button disabled>MTK 🔒</button>";
+    let sisaMtk = data.sisa_mtk;
+    let sisaIndo = data.sisa_indo;
+
+    let html = "<h2>Pilih Mata Pelajaran</h2>";
+
+    // ✅ MTK
+    if (sisaMtk > 0) {
+      html += "<button onclick=\"pilihMapel('MTK')\">MTK</button>";
+    } else {
+      html += "<button disabled>MTK 🔒</button>";
+    }
+
+    // ✅ INDO
+    if (sisaIndo > 0) {
+      html += "<button onclick=\"pilihMapel('INDO')\">B.INDO</button>";
+    } else {
+      html += "<button disabled>B.INDO 🔒</button>";
+    }
+
+    html += "<br><br>";
+    html += "<button onclick='tampilJenjang()'>Sebelumnya</button>";
+    html += "<button onclick='lanjutBankSoal()'>Selanjutnya</button>";
+
+    document.getElementById("menuArea").innerHTML = html;
+  } catch (err) {
+    console.error(err);
+    alert("Gagal mengambil data");
+  } finally {
+    // 🔥 WAJIB: apapun hasilnya, loading hilang
+    loading.style.display = "none";
   }
-
-  // ✅ INDO
-  if (sisaIndo > 0) {
-    html += "<button onclick=\"pilihMapel('INDO')\">B.INDO</button>";
-  } else {
-    html += "<button disabled>B.INDO 🔒</button>";
-  }
-
-  html += "<br><br>";
-  html += "<button onclick='tampilJenjang()'>Sebelumnya</button>";
-  html += "<button onclick='lanjutBankSoal()'>Selanjutnya</button>";
-
-  document.getElementById("menuArea").innerHTML = html;
 }
 
 /* =====================================================

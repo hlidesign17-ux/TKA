@@ -255,3 +255,10 @@ JALANKAN HALAMAN AWAL
 ===================================================== */
 
 tampilJenjang();
+
+function logout() {
+  if (confirm("Yakin ingin logout?")) {
+    localStorage.clear();
+    window.location.replace("index.html"); // 🔥 tidak bisa back
+  }
+}

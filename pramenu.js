@@ -134,10 +134,8 @@ async function loadDashboard() {
 loadDashboard();
 
 function logout() {
-  let konfirmasi = confirm("Yakin ingin logout?");
-
-  if (konfirmasi) {
+  if (confirm("Yakin ingin logout?")) {
     localStorage.clear();
-    window.location = "index.html";
+    window.location.replace("index.html"); // 🔥 tidak bisa back
   }
 }

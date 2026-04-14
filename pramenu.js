@@ -16,12 +16,14 @@ const api =
 let username = localStorage.getItem("username");
 let kalimat = localStorage.getItem("kalimat");
 let gender = localStorage.getItem("gender");
+let sekolah = localStorage.getItem("sekolah"); // ✅ TAMBAHAN
 
 //========================
 // SET TEXT
 //========================
 
 document.getElementById("hi").innerText = "Selamat Datang, " + username;
+document.getElementById("sekolah").innerText = sekolah;
 
 document.getElementById("kalimat").innerText = kalimat;
 

@@ -65,6 +65,7 @@ async function login() {
     if (data.status == "success") {
       localStorage.setItem("username", data.username);
       localStorage.setItem("kalimat", data.kalimat);
+      localStorage.setItem("sekolah", data.sekolah); // ✅ WAJIB
 
       localStorage.setItem("jenjang", data.jenjang);
       localStorage.setItem("mtk", data.mtk);

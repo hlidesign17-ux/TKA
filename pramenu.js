@@ -23,9 +23,8 @@ let sekolah = localStorage.getItem("sekolah"); // ✅ TAMBAHAN
 //========================
 
 document.getElementById("hi").innerText = "Selamat Datang, " + username;
-document.getElementById("sekolah").innerText = data.sekolah;
-
-document.getElementById("kalimat").innerText = data.kalimat;
+document.getElementById("kalimat").innerText = kalimat;
+document.getElementById("sekolah").innerText = sekolah;
 
 //========================
 // SET AVATAR
@@ -102,6 +101,8 @@ async function loadDashboard() {
       "Selamat Datang, " + data.username;
 
     document.getElementById("kalimat").innerText = data.kalimat;
+    // ✅ TAMBAHAN BENAR DI SINI
+    document.getElementById("sekolah").innerText = data.sekolah;
 
     // ========================
     // AVATAR

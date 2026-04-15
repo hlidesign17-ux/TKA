@@ -2,6 +2,7 @@ let api =
   "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3Eh90GYOFVsl6Y8ovuRzDUrp7TAGGomk8eZX9n4/exec";
 
 async function loadLeaderboard() {
+  document.getElementById("loadingOverlay").style.display = "flex"; // 🔥 tampilkan loading
   let mapel = document.getElementById("mapel").value;
   let bank = document.getElementById("bank").value;
   let jenjang = document.getElementById("jenjang").value;
@@ -48,4 +49,5 @@ async function loadLeaderboard() {
     row.insertCell(2).innerText = item.nilai;
     row.insertCell(3).innerText = item.waktu;
   });
+  document.getElementById("loadingOverlay").style.display = "none"; // 🔥 sembunyikan
 }

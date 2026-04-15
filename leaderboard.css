@@ -15,7 +15,8 @@ table {
   margin-top: 20px;
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   border: 1px solid #ddd;
 }
@@ -25,6 +26,16 @@ th {
   color: white;
 }
 
-.gold { background: gold; }
-.silver { background: silver; }
-.bronze { background: #cd7f32; }
+.gold {
+  background: gold;
+}
+.silver {
+  background: silver;
+}
+.bronze {
+  background: #cd7f32;
+}
+
+#loadingOverlay {
+  backdrop-filter: blur(5px);
+}

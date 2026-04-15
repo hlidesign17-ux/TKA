@@ -3,8 +3,9 @@ let api = "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3
 async function loadLeaderboard() {
   let mapel = document.getElementById("mapel").value;
   let bank = document.getElementById("bank").value;
+  let jenjang = document.getElementById("jenjang").value;
 
-  let url = api + "?aksi=leaderboard&mapel=" + mapel + "&bank=" + bank;
+  let url = api + "?aksi=leaderboard&mapel=" + mapel + "&bank=" + bank + "&jenjang=" + jenjang;
 
   let res = await fetch(url);
   let data = await res.json();

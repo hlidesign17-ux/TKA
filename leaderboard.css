@@ -38,4 +38,5 @@ th {
 
 #loadingOverlay {
   backdrop-filter: blur(5px);
+  transition: 0.3s;
 }

@@ -31,15 +31,16 @@ async function loadLeaderboard() {
 
     tabel.innerHTML = `
       <tr>
-        <th>Rank</th>
-        <th>Username</th>
-        <th>Nilai</th>
-        <th>Waktu</th>
-      </tr>
+  <th>Rank</th>
+  <th>Username</th>
+  <th>Sekolah</th>
+  <th>Nilai</th>
+  <th>Waktu</th>
+</tr>
     `;
 
     if (data.length == 0) {
-      tabel.innerHTML += `<tr><td colspan="4">Tidak ada data</td></tr>`;
+      tabel.innerHTML += `<tr><td colspan="5">Tidak ada data</td></tr>`;
     } else {
       data.forEach((item, index) => {
         let row = tabel.insertRow();
@@ -50,8 +51,9 @@ async function loadLeaderboard() {
 
         row.insertCell(0).innerText = index + 1;
         row.insertCell(1).innerText = item.username;
-        row.insertCell(2).innerText = item.nilai;
-        row.insertCell(3).innerText = item.waktu;
+        row.insertCell(2).innerText = item.sekolah;
+        row.insertCell(3).innerText = item.nilai;
+        row.insertCell(4).innerText = item.waktu;
       });
     }
   } catch (err) {

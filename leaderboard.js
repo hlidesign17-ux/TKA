@@ -66,3 +66,8 @@ async function loadLeaderboard() {
   btn.disabled = false;
   btn.innerText = "Tampilkan";
 }
+
+function keLogin() {
+  localStorage.clear(); // 🔥 hapus data user
+  window.location.href = "index.html";
+}

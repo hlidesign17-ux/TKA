@@ -1,37 +1,42 @@
 <!doctype html>
 <html>
-<head>
-  <title>Leaderboard</title>
-  <link rel="stylesheet" href="leaderboard.css">
-</head>
+  <head>
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="leaderboard.css" />
+  </head>
 
-<body>
-  <div class="container">
-    <h1>🏆 Leaderboard</h1>
+  <body>
+    <div class="container">
+      <h1>🏆 Leaderboard</h1>
 
-    <select id="mapel">
-      <option value="MTK">MTK</option>
-      <option value="INDO">INDO</option>
-    </select>
+      <select id="jenjang">
+        <option value="SD">SD</option>
+        <option value="SMP">SMP</option>
+      </select>
 
-    <select id="bank">
-      <option value="1">Bank 1</option>
-      <option value="2">Bank 2</option>
-      <option value="3">Bank 3</option>
-    </select>
+      <select id="mapel">
+        <option value="MTK">MTK</option>
+        <option value="INDO">INDO</option>
+      </select>
 
-    <button onclick="loadLeaderboard()">Tampilkan</button>
+      <select id="bank">
+        <option value="1">Bank 1</option>
+        <option value="2">Bank 2</option>
+        <option value="3">Bank 3</option>
+      </select>
 
-    <table id="tabel">
-      <tr>
-        <th>Rank</th>
-        <th>Username</th>
-        <th>Nilai</th>
-        <th>Waktu</th>
-      </tr>
-    </table>
-  </div>
+      <button onclick="loadLeaderboard()">Tampilkan</button>
 
-  <script src="leaderboard.js"></script>
-</body>
+      <table id="tabel">
+        <tr>
+          <th>Rank</th>
+          <th>Username</th>
+          <th>Nilai</th>
+          <th>Waktu</th>
+        </tr>
+      </table>
+    </div>
+
+    <script src="leaderboard.js"></script>
+  </body>
 </html>

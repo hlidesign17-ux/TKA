@@ -1,14 +1,24 @@
-let api = "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3Eh90GYOFVsl6Y8ovuRzDUrp7TAGGomk8eZX9n4/exec";
+let api =
+  "https://script.google.com/macros/s/AKfycbwY78pB86rZDtm1Ec2PhKQ4JMMSb3Eh90GYOFVsl6Y8ovuRzDUrp7TAGGomk8eZX9n4/exec";
 
 async function loadLeaderboard() {
   let mapel = document.getElementById("mapel").value;
   let bank = document.getElementById("bank").value;
   let jenjang = document.getElementById("jenjang").value;
 
-  let url = api + "?aksi=leaderboard&mapel=" + mapel + "&bank=" + bank + "&jenjang=" + jenjang;
+  let url =
+    api +
+    "?aksi=leaderboard&mapel=" +
+    mapel +
+    "&bank=" +
+    bank +
+    "&jenjang=" +
+    jenjang;
 
   let res = await fetch(url);
   let data = await res.json();
+
+  console.log("DATA LEADERBOARD:", data); // 🔥 DEBUG
 
   let tabel = document.getElementById("tabel");
 
@@ -20,6 +30,11 @@ async function loadLeaderboard() {
       <th>Waktu</th>
     </tr>
   `;
+
+  if (data.length == 0) {
+    tabel.innerHTML += `<tr><td colspan="4">Tidak ada data</td></tr>`;
+    return;
+  }
 
   data.forEach((item, index) => {
     let row = tabel.insertRow();
